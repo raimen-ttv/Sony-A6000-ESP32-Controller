@@ -18,19 +18,6 @@ ESP8266WebServer server(80);
 #define zoomInFast 5
 #define zoomInSlow 4
 
-void handlePlain() {
-  if (server.method() != HTTP_POST) {
-    server.send(405, "text/plain", "Method Not Allowed");
-
-
-  } else {
-
-    server.send(200, "text/plain", "POST body was:\n" + server.arg("plain"));
-
-  }
-}
-
-
 void handleJSON() {
   if (server.method() != HTTP_POST) {
     server.send(405, "text/plain", "Method Not Allowed");
@@ -141,8 +128,6 @@ void setup(void) {
   if (MDNS.begin("esp8266")) { Serial.println("MDNS responder started"); }
 
   server.on("/pin", handleJSON);
-
-  server.on("/postplain/", handlePlain);
 
   server.begin();
   Serial.println("HTTP server started");
